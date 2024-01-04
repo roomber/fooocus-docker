@@ -1,7 +1,4 @@
-# Stage 1: Base
-FROM nvidia/cuda:11.8.0-cudnn8-devel-ubuntu22.04 as base
-
-ARG FOOOCUS_COMMIT=624f74a1ed78ea09467c856cef35aeee0af863f6
+FROM nvidia/nvidia/cuda:12.3.1-base-ubuntu22.04 as base
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -11,6 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive \
 
 WORKDIR /
 
+#parts of this dockerfile is copied from https://github.com/ashleykleynhans/fooocus-docker.git
 # Install Ubuntu packages
 RUN apt update && \
     apt -y upgrade && \
@@ -64,7 +62,7 @@ RUN python3 -m venv /venv
 WORKDIR /
 RUN git clone https://github.com/lllyasviel/Fooocus.git && \
     cd /Fooocus && \
-    git checkout ${FOOOCUS_COMMIT}
+    git checkout master
 
 # Install the dependencies for Fooocus
 WORKDIR /Fooocus
@@ -84,20 +82,20 @@ RUN pip3 install -U --no-cache-dir jupyterlab \
         ipywidgets \
         gdown
 
-# Install rclone
-RUN curl https://rclone.org/install.sh | bash
+## Install rclone
+#RUN curl https://rclone.org/install.sh | bash
 
-# Install runpodctl
-RUN wget https://github.com/runpod/runpodctl/releases/download/v1.10.0/runpodctl-linux-amd -O runpodctl && \
-    chmod a+x runpodctl && \
-    mv runpodctl /usr/local/bin
+## Install runpodctl
+#RUN wget https://github.com/runpod/runpodctl/releases/download/v1.10.0/runpodctl-linux-amd -O runpodctl && \
+#    chmod a+x runpodctl && \
+#    mv runpodctl /usr/local/bin
 
-# Install croc
-RUN curl https://getcroc.schollz.com | bash
+## Install croc
+#RUN curl https://getcroc.schollz.com | bash
 
-# Install speedtest CLI
-RUN curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | bash && \
-    apt install speedtest
+## Install speedtest CLI
+#RUN curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | bash && \
+#    apt install speedtest
 
 # Remove existing SSH host keys
 RUN rm -f /etc/ssh/ssh_host_*
