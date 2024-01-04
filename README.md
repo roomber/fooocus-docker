@@ -9,10 +9,6 @@
   https://github.com/lllyasviel/Fooocus) 2.1.860
 * Torch 2.1.0
 * xformers
-* [runpodctl](https://github.com/runpod/runpodctl)
-* [croc](https://github.com/schollz/croc)
-* [rclone](https://rclone.org/)
-
 ## Available on RunPod
 
 This image is designed to work on [RunPod](https://runpod.io?ref=2xxro4sy).
