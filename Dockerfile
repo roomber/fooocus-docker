@@ -1,4 +1,4 @@
-FROM nvidia/nvidia/cuda:12.3.1-base-ubuntu22.04 as base
+FROM nvidia/cuda:12.3.1-base-ubuntu22.04 as base
 
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 ENV DEBIAN_FRONTEND=noninteractive \
@@ -62,7 +62,7 @@ RUN python3 -m venv /venv
 WORKDIR /
 RUN git clone https://github.com/lllyasviel/Fooocus.git && \
     cd /Fooocus && \
-    git checkout master
+    git checkout main
 
 # Install the dependencies for Fooocus
 WORKDIR /Fooocus
